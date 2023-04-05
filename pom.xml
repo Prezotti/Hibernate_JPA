@@ -25,9 +25,10 @@
             <version>5.4.27.Final</version>
         </dependency>
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.27</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
