@@ -1,24 +1,31 @@
 package testes;
 
+import dao.CategoriaDao;
+import dao.ProdutoDao;
+import modelo.Categoria;
 import modelo.Produto;
+import util.JPAUtil;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.math.BigDecimal;
 
 public class CadastroDeProduto {
 
     public static void main(String[] args) {
-        Produto celular = new Produto();
-        celular.setNome("Xiaomi Redmi");
-        celular.setDescricao("Muito Legal");
-        celular.setPreco(new BigDecimal("800"));
+        Categoria celulares = new Categoria("celulares");
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja");
-        EntityManager em = factory.createEntityManager();
+        Produto celular = new Produto("IPhone 14 PRO", "Muito melhor", new BigDecimal("1000"), celulares);
+
+        EntityManager em = JPAUtil.getEntityManager();
+
         em.getTransaction().begin();
-        em.persist(celular);
+
+        ProdutoDao produtoDao = new ProdutoDao(em);
+        CategoriaDao categoriaDao = new CategoriaDao(em);
+
+        categoriaDao.cadastrar(celulares);
+        produtoDao.cadastrar(celular);
+
         em.getTransaction().commit();
         em.close();
     }
